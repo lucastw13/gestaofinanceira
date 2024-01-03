@@ -1,0 +1,125 @@
+import { useState, React, useEffect } from 'react';
+import Menu from './menu.js';
+import { Container, Table,Label,Input } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Dado from '../dado/generico.js';
+import Usuario from "../dado/usuario.js";
+import Host from '../dado/host.js';
+import { useRouter } from 'next/router'
+import Carregamento from './carregamento.js';
+function Saida() {
+    const [lista, setLista] = useState("");
+    const [listaRecorrente, setListaRecorrente] = useState("");
+    const [listaExibir, setListaExibir] = useState("");
+    const router = useRouter();
+    const [carregando, setCarregando] = useState("")
+    useEffect(() => {
+        listar()
+    }, [])
+
+    function listar() {
+        setCarregando(true)
+        Dado.listar("saida")
+            .then(response => {
+                if (response.data != null) {
+                    if (response.data.status == true) {
+                        setLista(response.data.lista);
+                        setListaExibir(response.data.lista)
+                        setListaRecorrente(response.data.listaRecorrente);
+                    } else {
+                        setLista([])
+                        console.log("error: " + response.data.descricao)
+
+                    }
+                }
+            }, (error) => {
+                console.log("error: " + error)
+            })
+            .finally(() => {
+                setCarregando(false)
+            });
+    }
+
+    function deletar(item) {
+        var deletar = confirm("Deseja excluir o saída: " + item.descricao + " ?");
+        if (deletar) {
+            Dado.deletar(item._id, "saida")
+                .then(response => {
+                    if (response.data != null) {
+                        if (response.data.status == true) {
+                            listar()
+                        } else {
+                            console.log("error: " + response.data.descricao)
+                        }
+                    }
+                }, (error) => {
+                    console.log("error: " + error)
+                })
+        }
+
+    }
+
+    function mudarRecorrente(event){
+        if (event.target.checked){
+            setListaExibir(listaRecorrente)
+        }else{
+            setListaExibir(lista)
+        }
+    }
+    return (
+        <Container>
+            <Menu descricao="Saídas" />
+            <Label for="recorrente">Recorrente</Label>
+            <Input type="checkbox" id="recorrente" onChange={mudarRecorrente} />
+            <Table>
+                <thead>
+                    <tr>
+                        <th>
+                            Descrição
+                        </th>
+                        <th>
+                            Valor
+                        </th>
+                        <th>
+                            <a href={Host.url() + "/saida/incluir"}>
+                                <img src='/+.png' width="20px" />
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listaExibir && listaExibir.map((item) => (
+                        <tr onClick={() => router.push(Host.url() + "/saida/" + item._id)}>
+                            <td>
+                                {item.descricao}
+                            </td>
+                            <td>
+                                {item.valor}
+                            </td>
+                            <td>
+                                <img src='/x.png' width="20px" onClick={() => deletar(item)} />
+
+                            </td>
+
+                        </tr>
+
+                    ))}
+                </tbody>
+            </Table>
+
+            {carregando &&
+                <Carregamento />
+            }
+        </Container>
+    );
+
+
+}
+
+
+function Pagina() {
+    return <Saida />
+}
+
+
+export default Pagina;
