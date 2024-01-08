@@ -2,7 +2,7 @@
   "name": "gestaofinanceira",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "pages/competencia.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
