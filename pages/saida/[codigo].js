@@ -6,6 +6,7 @@ import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
 import Host from '../../dado/host.js';
 import Carregamento from '../carregamento.js';
+import styles from './[codigo].module.css'
 function Saida() {
     const [item, setItem] = useState("");
     const [listaCompetencia, setListaCompetencia] = useState("");
@@ -15,7 +16,7 @@ function Saida() {
     useEffect(() => {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
             if (router.query.codigo == "incluir") {
-                setItem({ recorrente: false,mozao:false, competencia: [] })
+                setItem({ recorrente: false, mozao: false, competencia: [] })
             } else {
                 listar(router.query.codigo)
             }
@@ -114,6 +115,8 @@ function Saida() {
                 var listaCompetenciaTemp = listaCompetencia
                 var itemTemp = item
                 listaCompetenciaTemp.push({ mes: mes, ano: ano, valor: valor })
+                listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.mes - item2.mes)
+                listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.ano - item2.ano)
                 itemTemp.competencia = listaCompetenciaTemp
                 setItem(itemTemp)
                 setListaCompetencia(listaCompetenciaTemp)
@@ -165,69 +168,74 @@ function Saida() {
         <Container>
             <Menu descricao="Saídas" />
             <Form>
-                <FormGroup>
-                    <Label for="descricao">Descricao</Label>
-                    <Input type="text" id="descricao" onChange={mudarDescricao} />
+                <Label for="descricao">Descricao</Label>
+                <Input type="text" id="descricao" onChange={mudarDescricao} />
 
-                    <Label for="valor">Valor</Label>
-                    <Input type="text" id="valor" onChange={mudarValor} />
+                <Label for="valor">Valor</Label>
+                <Input type="text" id="valor" onChange={mudarValor} />
+                <Table className={styles.tabela}>
+                    <tr >
 
-                    <Label for="recorrente">Recorrente</Label>
-                    <Input type="checkbox" id="recorrente" onChange={mudarRecorrente} />
-                    <Label for="mozao">Mozão</Label>
-                    <Input type="checkbox" id="mozao" onChange={mudarMozao} />
+                        <td><Label for="recorrente">Recorrente</Label></td>
+                        <td><Input type="checkbox" id="recorrente" onChange={mudarRecorrente} /></td>
+                    </tr>
+                    <tr>
+                        <td><Label for="mozao">Mozão</Label></td>
+                        <td><Input type="checkbox" id="mozao" onChange={mudarMozao} /></td>
+                    </tr>
+                </Table>
+                <br />
+                <Label for="mes">Mês</Label>
+                <Input type="number" id="mes" onChange={mudarMes} />
 
-                    <Label for="mes">Mês</Label>
-                    <Input type="number" id="mes" onChange={mudarMes} />
+                <Label for="ano">Ano</Label>
+                <Input type="number" id="ano" onChange={mudarAno} />
 
-                    <Label for="ano">Ano</Label>
-                    <Input type="number" id="ano" onChange={mudarAno} />
-
-                    <Button color="danger" onClick={adicionar}>Adicionar</Button>
-                    <Table>
-                        <thead>
+                <Button color="danger" onClick={adicionar}>Adicionar</Button>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Mês
+                            </th>
+                            <th>
+                                Ano
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {listaCompetencia && listaCompetencia.map((item) => (
                             <tr>
-                                <th>
-                                    Mês
-                                </th>
-                                <th>
-                                    Ano
-                                </th>
-                                <th>
-                                    Valor
-                                </th>
+                                <td>
+                                    {item.mes}
+                                </td>
+                                <td>
+                                    {item.ano}
+                                </td>
+                                <td>
+                                    {item.valor}
+                                </td>
+                                <td>
+                                    <img src='/x.png' width="20px" onClick={() => deletar(item)} />
+
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {listaCompetencia && listaCompetencia.map((item) => (
-                                <tr>
-                                    <td>
-                                        {item.mes}
-                                    </td>
-                                    <td>
-                                        {item.ano}
-                                    </td>
-                                    <td>
-                                        {item.valor}
-                                    </td>
-                                    <td>
-                                        <img src='/x.png' width="20px" onClick={() => deletar(item)} />
 
-                                    </td>
-                                </tr>
+                        ))}
+                    </tbody>
+                </Table>
 
-                            ))}
-                        </tbody>
-                    </Table>
-
-                </FormGroup>
 
                 <Button color="danger" onClick={salvar}>Salvar</Button>
             </Form>
-            {carregando &&
+            {
+                carregando &&
                 <Carregamento />
             }
-        </Container>
+        </Container >
     );
 }
 

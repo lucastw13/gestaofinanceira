@@ -14,7 +14,7 @@ function Entrada() {
     useEffect(() => {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
             if (router.query.codigo == "incluir") {
-                setItem({recorrente:false})
+                setItem({ recorrente: false })
             }
             listar(router.query.codigo)
         }
@@ -51,7 +51,7 @@ function Entrada() {
         itemTemp.descricao = event.target.value
         setItem(itemTemp);
 
-    }   
+    }
     function mudarValor(event) {
         var itemTemp = item
         itemTemp.valor = event.target.value
@@ -118,7 +118,7 @@ function Entrada() {
 
                     <Label for="recorrente">Recorrente</Label>
                     <Input type="checkbox" id="recorrente" onChange={mudarRecorrente} />
-
+                    <br />
                     <Label for="mes">Mês</Label>
                     <Input type="number" id="mes" onChange={mudarMes} />
 

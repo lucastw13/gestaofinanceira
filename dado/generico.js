@@ -19,10 +19,17 @@ export default class Generico {
   static item(codigo, entidade) {
     return axios.get(Host.urlApi() + "/" + entidade + "/" + codigo)
   }
-
+  
   static deletar(codigo, entidade) {
     return axios.delete(Host.urlApi() + "/" + entidade + "/" + codigo);
   }
+  static paguei(codigo,mes,ano) {
+    return axios.get(Host.urlApi() + "/paguei/"+codigo+"/"+mes+"/"+ano)
+  }
+  static confirmei(codigo,mes,ano) {
+    return axios.get(Host.urlApi() + "/confirmei/"+codigo+"/"+mes+"/"+ano)
+  }
+  
   static salvar(item, entidade) {
     var dateTime = new Date()
     if (item._id == "" || item._id == undefined) {
