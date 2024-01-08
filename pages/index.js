@@ -235,6 +235,18 @@ function Competencia() {
                         ))}
 
                         <br />
+                        <tr>
+                            <td><h6>Mozão</h6></td><td>{itemModal.totalMozao}</td>
+                        </tr>
+
+
+                        {itemModal.mozao && itemModal.mozao.map((itemSaidaMozao) => (
+                            <tr>
+                                <td>{itemSaidaMozao.descricao}</td><td>R${itemSaidaMozao.valor}</td>
+                                <br />
+                            </tr>
+                        ))}
+                        <br/>
                         <h6>Saídas:</h6>
 
                         {itemModal.saida && itemModal.saida.map((itemSaida) => (
@@ -260,18 +272,6 @@ function Competencia() {
                         ))}
 
                         <br />
-
-                        <tr>
-                            <td><h6>Mozão</h6></td><td>{itemModal.totalMozao}</td>
-                        </tr>
-
-
-                        {itemModal.mozao && itemModal.mozao.map((itemSaidaMozao) => (
-                            <tr>
-                                <td>{itemSaidaMozao.descricao}</td><td>R${itemSaidaMozao.valor}</td>
-                                <br />
-                            </tr>
-                        ))}
                     </Table>
                     <br />
                 </ModalBody>
