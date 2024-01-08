@@ -104,7 +104,7 @@ function Login() {
                 <FormGroup>
                     <Label for="residencia">Residencia</Label>
                     <Input type="select" id="residencia" onChange={mudarResidencia}>
-                     
+                        <option value="">Selecione</option>
                         {listaResidencia && listaResidencia.map((item) => (
                             <option value={item._id}>{item.descricao}</option>
                         ))}
