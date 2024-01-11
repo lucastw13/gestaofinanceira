@@ -119,6 +119,7 @@ function Saida() {
                 listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.ano - item2.ano)
                 itemTemp.competencia = listaCompetenciaTemp
                 setItem(itemTemp)
+                console.log(listaCompetenciaTemp)
                 setListaCompetencia(listaCompetenciaTemp)
             }
         }

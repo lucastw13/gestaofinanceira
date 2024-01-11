@@ -3,8 +3,6 @@ import Menu from './menu.js';
 import { Container, Table, Modal, ModalHeader, ModalBody, Input, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../dado/generico.js';
-import Usuario from "../dado/usuario.js";
-import Host from '../dado/host.js';
 import { useRouter } from 'next/router'
 import Carregamento from './carregamento.js';
 import styles from './index.module.css'
