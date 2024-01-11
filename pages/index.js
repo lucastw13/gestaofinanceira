@@ -238,7 +238,7 @@ function Competencia() {
 
                         <br />
                         <tr>
-                            <th>Mozão</th>
+                            <th>Mozão:</th>
                             <th>{itemModal.totalMozao}</th>
 
                         </tr>
