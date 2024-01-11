@@ -140,7 +140,7 @@ function Competencia() {
                                 for (var itemSaidaRecorrente of itemTemp.saidaRecorrente) {
                                     if (itemSaidaRecorrente._id == codigo) {
                                         if ((itemSaidaRecorrente.confirmei == "") || (itemSaidaRecorrente.confirmei == undefined))
-                                        itemSaidaRecorrente.confirmei = false
+                                            itemSaidaRecorrente.confirmei = false
                                         itemSaidaRecorrente.confirmei = !itemSaidaRecorrente.confirmei
                                     }
                                     listaSaidaRecorrenteTemp.push(itemSaidaRecorrente)
@@ -152,7 +152,7 @@ function Competencia() {
                                     if (itemMozao._id == codigo) {
                                         if ((itemMozao.confirmei == "") || (itemMozao.confirmei == undefined))
                                             itemMozao.confirmei = false
-                                            itemMozao.confirmei = !itemSaida.confirmei
+                                        itemMozao.confirmei = !itemSaida.confirmei
                                     }
                                     listaMozaoTemp.push(itemMozao)
                                 }
@@ -160,7 +160,7 @@ function Competencia() {
                                 setItemModal(itemTemp)
                             }
                             listaTemp.push(itemTemp)
-                            
+
                         }
                         setLista(listaTemp)
                     } else {
@@ -223,7 +223,7 @@ function Competencia() {
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>{itemModal.mes}/{itemModal.ano}</ModalHeader>
                 <ModalBody>
-                    <h6>Entradas:</h6>
+                    <b>Entradas:</b>
                     <Table className={styles.entrada}>
                         {itemModal.entrada && itemModal.entrada.map((itemEntrada) => (
                             <tr>
@@ -234,7 +234,7 @@ function Competencia() {
 
                         <br />
                         <tr>
-                            <td><h6>Mozão</h6></td><td>{itemModal.totalMozao}</td>
+                            <td><b>Mozão</b></td><td>{itemModal.totalMozao}</td>
                         </tr>
 
 
@@ -244,27 +244,54 @@ function Competencia() {
                                 <br />
                             </tr>
                         ))}
-                        <br/>
-                        <h6>Saídas:</h6>
+                        <br />
+                        <tr>
+                            <td>
+                                <b>Saídas:</b>
+                            </td>
 
+                            <td>
+                            </td>
+                            <td>
+                                <b>Paguei</b>
+                            </td>
+                            <td>
+                                <b>Confirmei</b>
+                            </td>
+                        </tr>
                         {itemModal.saida && itemModal.saida.map((itemSaida) => (
                             <tr>
                                 <td>{itemSaida.descricao}</td><td>R${itemSaida.valor}</td>
-                                <td><div onClick={() => paguei(itemSaida._id, itemModal.mes, itemModal.ano)} >{"" + itemSaida.paguei}</div></td>
-                                <td><div onClick={() => confirmei(itemSaida._id, itemModal.mes, itemModal.ano)} >{"" + itemSaida.confirmei}</div></td>
+                                <td><div onClick={() => paguei(itemSaida._id, itemModal.mes, itemModal.ano)} >{itemSaida.paguei && <div className={styles.sim}>Sim</div>}{!itemSaida.paguei && <div className={styles.nao}>Não</div>}</div></td>
+                                <td><div onClick={() => confirmei(itemSaida._id, itemModal.mes, itemModal.ano)} >{itemSaida.confirmei && <div className={styles.sim}>Sim</div>}{!itemSaida.confirmei && <div className={styles.nao}>Não</div>}</div></td>
 
                                 <br />
                             </tr>
                         ))}
 
                         <br />
-                        <h6>Saídas Recorrentes:</h6>
+
+                        <tr>
+                            <td>
+                                <b>Saídas Recorrentes:</b>
+                            </td>
+
+                            <td>
+                            </td>
+                            <td>
+                                <b> Paguei</b>
+                            </td>
+                            <td>
+                                <b>Confirmei</b>
+                            </td>
+                        </tr>
 
                         {itemModal.saidaRecorrente && itemModal.saidaRecorrente.map((itemSaidaRecorrente) => (
                             <tr>
                                 <td>{itemSaidaRecorrente.descricao}</td><td>R${itemSaidaRecorrente.valor}</td>
-                                <td><div onClick={() => paguei(itemSaidaRecorrente._id, itemModal.mes, itemModal.ano)} >{"" + itemSaidaRecorrente.paguei}</div></td>
-                                <td><div onClick={() => confirmei(itemSaidaRecorrente._id, itemModal.mes, itemModal.ano)} >{"" + itemSaidaRecorrente.confirmei}</div></td>
+                                <td><div onClick={() => paguei(itemSaidaRecorrente._id, itemModal.mes, itemModal.ano)} >{itemSaidaRecorrente.paguei && <div className={styles.sim}>Sim</div>}{!itemSaidaRecorrente.paguei && <div className={styles.nao}>Não</div>}</div></td>
+                                <td><div onClick={() => confirmei(itemSaidaRecorrente._id, itemModal.mes, itemModal.ano)} >{itemSaidaRecorrente.confirmei && <div className={styles.sim}>Sim</div>}{!itemSaidaRecorrente.confirmei && <div className={styles.nao}>Não</div>}</div></td>
+
                                 <br />
                             </tr>
                         ))}
