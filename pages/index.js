@@ -223,8 +223,9 @@ function Competencia() {
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>{itemModal.mes}/{itemModal.ano}</ModalHeader>
                 <ModalBody>
-                    <b>Entradas:</b>
-                    <Table className={styles.entrada}>
+
+                    <Table>
+                        <tr><th>Entradas:</th></tr>
                         {itemModal.entrada && itemModal.entrada.map((itemEntrada) => (
                             <tr>
                                 <td>{itemEntrada.descricao}</td> <td>R${itemEntrada.valor}</td>
@@ -234,7 +235,9 @@ function Competencia() {
 
                         <br />
                         <tr>
-                            <td><b>Mozão</b></td><td>{itemModal.totalMozao}</td>
+                            <th>Mozão</th>
+                            <th>{itemModal.totalMozao}</th>
+                            
                         </tr>
 
 
@@ -246,18 +249,17 @@ function Competencia() {
                         ))}
                         <br />
                         <tr>
-                            <td>
-                                <b>Saídas:</b>
-                            </td>
+                            <th>
+                                Saídas:
+                            </th>
 
-                            <td>
-                            </td>
-                            <td>
-                                <b>Paguei</b>
-                            </td>
-                            <td>
-                                <b>Confirmei</b>
-                            </td>
+                            <th></th>
+                            <th>
+                                Paguei
+                            </th>
+                            <th>
+                                Confirmei
+                            </th>
                         </tr>
                         {itemModal.saida && itemModal.saida.map((itemSaida) => (
                             <tr>
@@ -272,18 +274,18 @@ function Competencia() {
                         <br />
 
                         <tr>
-                            <td>
-                                <b>Saídas Recorrentes:</b>
-                            </td>
+                            <th>
+                                Saídas Recorrentes:
+                            </th>
 
-                            <td>
-                            </td>
-                            <td>
-                                <b> Paguei</b>
-                            </td>
-                            <td>
-                                <b>Confirmei</b>
-                            </td>
+                            <th>
+                            </th>
+                            <th>
+                                Paguei
+                            </th>
+                            <th>
+                                Confirmei
+                            </th>
                         </tr>
 
                         {itemModal.saidaRecorrente && itemModal.saidaRecorrente.map((itemSaidaRecorrente) => (
