@@ -225,7 +225,10 @@ function Competencia() {
                 <ModalBody>
 
                     <Table>
-                        <tr><th>Entradas:</th></tr>
+                        <tr>
+                            <th>Entradas:</th>
+                            <th>{itemModal.totalEntrada}</th>
+                        </tr>
                         {itemModal.entrada && itemModal.entrada.map((itemEntrada) => (
                             <tr>
                                 <td>{itemEntrada.descricao}</td> <td>R${itemEntrada.valor}</td>
@@ -237,7 +240,7 @@ function Competencia() {
                         <tr>
                             <th>Mozão</th>
                             <th>{itemModal.totalMozao}</th>
-                            
+
                         </tr>
 
 
@@ -253,7 +256,9 @@ function Competencia() {
                                 Saídas:
                             </th>
 
-                            <th></th>
+                            <th>
+                                {itemModal.totalSomenteNaoRecorrente}
+                            </th>
                             <th>
                                 Paguei
                             </th>
@@ -279,6 +284,7 @@ function Competencia() {
                             </th>
 
                             <th>
+                                {itemModal.totalSomenteRecorrente}
                             </th>
                             <th>
                                 Paguei
