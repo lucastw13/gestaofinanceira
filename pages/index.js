@@ -225,10 +225,12 @@ function Competencia() {
                 <ModalBody>
 
                     <Table>
-                        <tr>
-                            <th>Entradas:</th>
-                            <th>{itemModal.totalEntrada}</th>
-                        </tr>
+                        {itemModal.entrada && itemModal.entrada.length > 0 &&
+                            <tr>
+                                <th>Entradas:</th>
+                                <th>{itemModal.totalEntrada}</th>
+                            </tr>
+                        }
                         {itemModal.entrada && itemModal.entrada.map((itemEntrada) => (
                             <tr>
                                 <td>{itemEntrada.descricao}</td> <td>R${itemEntrada.valor}</td>
@@ -237,11 +239,15 @@ function Competencia() {
                         ))}
 
                         <br />
-                        <tr>
-                            <th>Mozão:</th>
-                            <th>{itemModal.totalMozao}</th>
+                        {itemModal.mozao && itemModal.mozao.length > 0 &&
+                            <tr>
 
-                        </tr>
+                                <th>Mozão:</th>
+
+                                <th>{itemModal.totalMozao}</th>
+
+                            </tr>
+                        }
 
 
                         {itemModal.mozao && itemModal.mozao.map((itemSaidaMozao) => (
@@ -251,21 +257,26 @@ function Competencia() {
                             </tr>
                         ))}
                         <br />
-                        <tr>
-                            <th>
-                                Saídas:
-                            </th>
+                        {itemModal.saida && itemModal.saida.length > 0 &&
+                            <tr>
 
-                            <th>
-                                {itemModal.totalSomenteNaoRecorrente}
-                            </th>
-                            <th>
-                                Paguei
-                            </th>
-                            <th>
-                                Confirmei
-                            </th>
-                        </tr>
+                                <th>
+                                    Saídas:
+                                </th>
+
+                                <th>
+                                    {itemModal.totalSomenteNaoRecorrente}
+                                </th>
+
+                                <th>
+                                    Paguei
+                                </th>
+                                <th>
+                                    Confirmei
+                                </th>
+                            </tr>
+                        }
+
                         {itemModal.saida && itemModal.saida.map((itemSaida) => (
                             <tr>
                                 <td>{itemSaida.descricao}</td><td>R${itemSaida.valor}</td>
@@ -277,22 +288,29 @@ function Competencia() {
                         ))}
 
                         <br />
+                        {itemModal.saidaRecorrente && itemModal.saidaRecorrente.length > 0 &&
+                            <tr>
 
-                        <tr>
-                            <th>
-                                Saídas Recorrentes:
-                            </th>
+                                <th>
+                                    Saídas Recorrentes:
+                                </th>
 
-                            <th>
-                                {itemModal.totalSomenteRecorrente}
-                            </th>
-                            <th>
-                                Paguei
-                            </th>
-                            <th>
-                                Confirmei
-                            </th>
-                        </tr>
+                                <th>
+                                    {itemModal.totalSomenteRecorrente}
+                                </th>
+
+
+
+                                <th>
+                                    Paguei
+                                </th>
+
+                                <th>
+                                    Confirmei
+                                </th>
+
+                            </tr>
+                        }
 
                         {itemModal.saidaRecorrente && itemModal.saidaRecorrente.map((itemSaidaRecorrente) => (
                             <tr>
