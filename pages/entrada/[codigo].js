@@ -15,8 +15,9 @@ function Entrada() {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
             if (router.query.codigo == "incluir") {
                 setItem({ recorrente: false })
+            } else {
+                listar(router.query.codigo)
             }
-            listar(router.query.codigo)
         }
     }, [router.query.codigo])
     function listar(pCodigo) {
@@ -126,7 +127,7 @@ function Entrada() {
                     <Input type="number" id="ano" onChange={mudarAno} />
                 </FormGroup>
 
-                <Button color="danger" onClick={salvar}>Salvar</Button>
+                <Button color="danger" onClick={() => salvar()}>Salvar</Button>
             </Form>
             {carregando &&
                 <Carregamento />
