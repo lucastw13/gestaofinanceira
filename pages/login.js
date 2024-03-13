@@ -136,7 +136,7 @@ function Login() {
             </Form>
 
             <Modal isOpen={modal} toggle={toggleModal}>
-                <ModalHeader toggle={toggleModal}>{itemModal.mes}/{itemModal.ano}</ModalHeader>
+                <ModalHeader toggle={toggleModal}>Informação</ModalHeader>
                 <ModalBody>
                             {textoModal}
                 </ModalBody>
