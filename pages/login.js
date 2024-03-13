@@ -64,7 +64,7 @@ function Login() {
 
     function entrar() {
         if (possuiErroObrigatorio()) {
-            setTextoModal("Preencha todos os Campos obrigatórios!"))
+            setTextoModal("Preencha todos os Campos obrigatórios!")
             toggleModal()
             //alert("Preencha todos os Campos obrigatórios!")
         } else {
