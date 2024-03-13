@@ -1,5 +1,5 @@
 import { useState, React, useEffect } from 'react';
-import { Container, Label, Input, Button, Form, FormGroup } from 'reactstrap';
+import { Container, Label, Input, Button, Form, FormGroup, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useRouter } from 'next/router'
 import Host from '../dado/host';
