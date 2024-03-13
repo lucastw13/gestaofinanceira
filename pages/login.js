@@ -14,6 +14,11 @@ function Login() {
     const [residencia, setResidencia] = useState("");
     const [listaResidencia, setListaResidencia] = useState("");
     const [carregando, setCarregando] = useState("")
+    const [textoModal, setTextoModal] = useState("")
+
+    const [modal, setModal] = useState(false);
+
+    const toggleModal = () => setModal(!modal);
 
     useEffect(() => {
         listar()
@@ -59,7 +64,9 @@ function Login() {
 
     function entrar() {
         if (possuiErroObrigatorio()) {
-            alert("Preencha todos os Campos obrigatórios!")
+            setTextoModal("Preencha todos os Campos obrigatórios!"))
+            toggleModal()
+            //alert("Preencha todos os Campos obrigatórios!")
         } else {
 
             Usuario.autenticar(nome, senha, residencia).then(response => {
@@ -71,12 +78,17 @@ function Login() {
                         Usuario.setNivel(item.nivel)
                         router.push(Host.url())
                     } else {
-                        alert(response.data.descricao)
+                        setTextoModal(response.data.descricao)
+                        toggleModal()
+                        //alert(response.data.descricao)
                     }
                 }
             }, (error) => {
                 console.log("error: " + error)
-                alert(error)
+                setTextoModal(error)
+                toggleModal()
+                //alert(error)
+
             })
 
         }
@@ -122,6 +134,13 @@ function Login() {
                     <Button color="danger" onClick={entrar}>Entrar</Button>
                 </FormGroup>
             </Form>
+
+            <Modal isOpen={modal} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>{itemModal.mes}/{itemModal.ano}</ModalHeader>
+                <ModalBody>
+                            {textoModal}
+                </ModalBody>
+            </Modal>
             {carregando &&
                 <Carregamento />
             }

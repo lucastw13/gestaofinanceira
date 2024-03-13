@@ -43,24 +43,6 @@ function Competencia() {
             });
     }
 
-    function deletar(item) {
-        var deletar = confirm("Deseja excluir o competencia: " + item.descricao + " ?");
-        if (deletar) {
-            Dado.deletar(item._id, "competencia")
-                .then(response => {
-                    if (response.data != null) {
-                        if (response.data.status == true) {
-                            listar()
-                        } else {
-                            console.log("error: " + response.data.descricao)
-                        }
-                    }
-                }, (error) => {
-                    console.log("error: " + error)
-                })
-        }
-
-    }
 
     function paguei(codigo, mes, ano) {
         Dado.paguei(codigo, mes, ano)
