@@ -58,7 +58,7 @@ function Parametro() {
 
     function salvar() {
         if (possuiErroObrigatorio()) {
-            alert("Preencha todos os Campos obrigatórios!")
+            //alert("Preencha todos os Campos obrigatórios!")
         } else {
             Dado.salvar(item, "parametro").then(response => {
                 if (response.data != null) {

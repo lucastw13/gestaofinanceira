@@ -1,6 +1,6 @@
 import { useState, React, useEffect } from 'react';
 import Menu from '../menu.js';
-import { Container, Label, Input, Button, Form, FormGroup } from 'reactstrap';
+import { Container, Label, Input, Button, Form, FormGroup,Modal,ModalBody,ModalHeader } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
@@ -10,6 +10,11 @@ function Entrada() {
     const [item, setItem] = useState("");
     const router = useRouter()
     const [carregando, setCarregando] = useState("")
+    const [textoModal, setTextoModal] = useState("")
+
+    const [modal, setModal] = useState(false);
+
+    const toggleModal = () => setModal(!modal);
 
     useEffect(() => {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
@@ -79,7 +84,8 @@ function Entrada() {
     }
     function salvar() {
         if (possuiErroObrigatorio()) {
-            alert("Preencha todos os Campos obrigatórios!")
+            setTextoModal("Preencha todos os Campos obrigatórios!")
+            toggleModal()
         } else {
             Dado.salvar(item, "entrada").then(response => {
                 if (response.data != null) {
@@ -98,7 +104,7 @@ function Entrada() {
         if (item.descricao == "" || item.descricao == undefined) {
             return true;
         }
-        if (item.valor == "" || item.descricao == valor) {
+        if (item.valor == "" || item.valor == undefined) {
             return true;
         }
 
@@ -129,6 +135,12 @@ function Entrada() {
 
                 <Button color="danger" onClick={() => salvar()}>Salvar</Button>
             </Form>
+            <Modal isOpen={modal} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>Informação</ModalHeader>
+                <ModalBody>
+                            {textoModal}
+                </ModalBody>
+            </Modal>
             {carregando &&
                 <Carregamento />
             }

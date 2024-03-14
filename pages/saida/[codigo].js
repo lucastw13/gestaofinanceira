@@ -1,6 +1,6 @@
 import { useState, React, useEffect } from 'react';
 import Menu from '../menu.js';
-import { Container, Label, Input, Button, Table, Form, FormGroup } from 'reactstrap';
+import { Container, Label, Input, Button, Table, Form, Modal,ModalBody,ModalHeader,ModalFooter } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
@@ -12,6 +12,16 @@ function Saida() {
     const [listaCompetencia, setListaCompetencia] = useState("");
     const router = useRouter()
     const [carregando, setCarregando] = useState("")
+    const [itemModal, setItemModal] = useState("");
+    const [modal, setModal] = useState(false);
+    const toggleModal = () => setModal(!modal);
+
+    const [textoModal, setTextoModal] = useState("")
+
+    const [modalInformacao, setModalInformacao] = useState(false);
+
+    const toggleModalInformacao = () => setModalInformacao(!modalInformacao);
+
 
     useEffect(() => {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
@@ -97,7 +107,8 @@ function Saida() {
         var ano = document.getElementById("ano").value
         var valor = document.getElementById("valor").value
         if ((mes == "") || (mes == undefined) || (ano == "") || (ano == undefined) || (valor == "") || (valor == undefined)) {
-            alert("Preencha todos os Campos obrigatórios!")
+            setTextoModal("Preencha todos os Campos obrigatórios!")
+            toggleModalInformacao()
         } else {
             var mes = parseInt(mes)
             var ano = parseInt(ano)
@@ -110,7 +121,8 @@ function Saida() {
                 }
             }
             if (possuiCompetencia) {
-                alert("Competencia já inclusa!")
+                setTextoModal("Competencia já inclusa!")
+                toggleModalInformacao()
             } else {
                 var listaCompetenciaTemp = listaCompetencia
                 var itemTemp = item
@@ -126,7 +138,8 @@ function Saida() {
     }
     function salvar() {
         if (possuiErroObrigatorio()) {
-            alert("Preencha todos os Campos obrigatórios!")
+            setTextoModal("Preencha todos os Campos obrigatórios!")
+            toggleModalInformacao()
         } else {
             Dado.salvar(item, "saida").then(response => {
                 if (response.data != null) {
@@ -148,20 +161,23 @@ function Saida() {
 
     }
 
+    function deletarToggle(pItem) {
+        setItemModal(pItem)
+        toggleModal()
+    }
+
     function deletar(pItem) {
-        var deletar = confirm("Deseja excluir a competência: " + pItem.mes + "/" + pItem.ano + " ?");
-        if (deletar) {
-            var itemTemp = item
-            var listaCompetenciaTemp = []
-            for (var itemCompetenciaTemp of listaCompetencia) {
-                if ((itemCompetenciaTemp.mes != pItem.mes) || (itemCompetenciaTemp.ano != pItem.ano)) {
-                    listaCompetenciaTemp.push(itemCompetenciaTemp)
-                }
+        var itemTemp = item
+        var listaCompetenciaTemp = []
+        for (var itemCompetenciaTemp of listaCompetencia) {
+            if ((itemCompetenciaTemp.mes != pItem.mes) || (itemCompetenciaTemp.ano != pItem.ano)) {
+                listaCompetenciaTemp.push(itemCompetenciaTemp)
             }
-            itemTemp.competencia = listaCompetenciaTemp
-            setItem(itemTemp)
-            setListaCompetencia(listaCompetenciaTemp)
         }
+        itemTemp.competencia = listaCompetenciaTemp
+        setItem(itemTemp)
+        setListaCompetencia(listaCompetenciaTemp)
+        toggleModal()
 
     }
 
@@ -220,7 +236,7 @@ function Saida() {
                                     {item.valor}
                                 </td>
                                 <td>
-                                    <img src='/x.png' width="20px" onClick={() => deletar(item)} />
+                                    <img src='/x.png' width="20px" onClick={() => deletarToggle(item)} />
 
                                 </td>
                             </tr>
@@ -232,6 +248,26 @@ function Saida() {
 
                 <Button color="danger" onClick={salvar}>Salvar</Button>
             </Form>
+            <Modal isOpen={modal} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>Confirmação</ModalHeader>
+                <ModalBody>
+                    Deseja excluir a competência: {itemModal.mes}/{itemModal.ano}?
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" onClick={() => deletar(itemModal)}>
+                        OK
+                    </Button>{' '}
+                    <Button color="secondary" onClick={toggleModal}>
+                        Cancelar
+                    </Button>
+                </ModalFooter>
+            </Modal>
+            <Modal isOpen={modalInformacao} toggle={toggleModalInformacao}>
+                <ModalHeader toggle={toggleModalInformacao}>Informação</ModalHeader>
+                <ModalBody>
+                            {textoModal}
+                </ModalBody>
+            </Modal>
             {
                 carregando &&
                 <Carregamento />

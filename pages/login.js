@@ -80,15 +80,12 @@ function Login() {
                     } else {
                         setTextoModal(response.data.descricao)
                         toggleModal()
-                        //alert(response.data.descricao)
                     }
                 }
             }, (error) => {
                 console.log("error: " + error)
                 setTextoModal(error)
                 toggleModal()
-                //alert(error)
-
             })
 
         }
