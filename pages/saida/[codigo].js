@@ -1,6 +1,6 @@
 import { useState, React, useEffect } from 'react';
 import Menu from '../menu.js';
-import { Container, Label, Input, Button, Table, Form, Modal,ModalBody,ModalHeader,ModalFooter } from 'reactstrap';
+import { Container, Label, Input, Button, Table, Form, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
@@ -202,14 +202,23 @@ function Saida() {
                     </tr>
                 </Table>
                 <br />
-                <Label for="mes">Mês</Label>
-                <Input type="number" id="mes" onChange={mudarMes} />
 
-                <Label for="ano">Ano</Label>
-                <Input type="number" id="ano" onChange={mudarAno} />
-
-                <Button color="danger" onClick={adicionar}>Adicionar</Button>
                 <Table>
+                    <tr>
+                        <td>
+                            <Label for="mes">Mês</Label>
+                            <Input type="number" id="mes" onChange={mudarMes} />
+                        </td>
+                        <td>
+                            <Label for="ano">Ano</Label>
+                            <Input type="number" id="ano" onChange={mudarAno} />
+                        </td>
+                        <td>
+                            <Button color="danger" onClick={adicionar}>Adicionar</Button>
+                        </td>
+                    </tr>
+                    <Table>
+                    </Table>
                     <thead>
                         <tr>
                             <th>
@@ -265,7 +274,7 @@ function Saida() {
             <Modal isOpen={modalInformacao} toggle={toggleModalInformacao}>
                 <ModalHeader toggle={toggleModalInformacao}>Informação</ModalHeader>
                 <ModalBody>
-                            {textoModal}
+                    {textoModal}
                 </ModalBody>
             </Modal>
             {
