@@ -6,7 +6,6 @@ import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
 import Host from '../../dado/host.js';
 import Carregamento from '../carregamento.js';
-import styles from './[codigo].module.css'
 function Saida() {
     const [item, setItem] = useState("");
     const [listaCompetencia, setListaCompetencia] = useState("");
@@ -185,26 +184,35 @@ function Saida() {
         <Container>
             <Menu descricao="Saídas" />
             <Form>
-                <Label for="descricao">Descricao</Label>
-                <Input type="text" id="descricao" onChange={mudarDescricao} />
-
-                <Table className={styles.tabela}>
-                    <tr >
-
-                        <td><Label for="recorrente">Recorrente</Label></td>
-                        <td><Input type="checkbox" id="recorrente" onChange={mudarRecorrente} /></td>
-                    </tr>
-                    <tr>
-                        <td><Label for="mozao">Mozão</Label></td>
-                        <td><Input type="checkbox" id="mozao" onChange={mudarMozao} /></td>
-                    </tr>
-                </Table>
-                <br />
 
                 <Row>
+                    <Col md={10}>
+                        <FormGroup>
+                            <Label for="descricao">Descricao</Label>
+                            <Input type="text" id="descricao" onChange={mudarDescricao} />
+                        </FormGroup>
+                    </Col>
+                </Row>
+                <Row>
                     <Col md={2}>
-                        <Label for="valor">Valor</Label>
-                        <Input type="text" id="valor" onChange={mudarValor} />
+                        <FormGroup>
+                            <Label for="recorrente">Recorrente</Label>
+                            <Input type="checkbox" id="recorrente" onChange={mudarRecorrente} />
+                        </FormGroup>
+                    </Col>
+                    <Col md={2}>
+                        <FormGroup>
+                            <Label for="mozao">Mozão</Label>
+                            <Input type="checkbox" id="mozao" onChange={mudarMozao} />
+                        </FormGroup>
+                    </Col>
+                    <Row>
+                    </Row>
+                    <Col md={2}>
+                        <FormGroup>
+                            <Label for="valor">Valor</Label>
+                            <Input type="text" id="valor" onChange={mudarValor} />
+                        </FormGroup>
                     </Col>
                     <Col md={2}>
                         <FormGroup>
