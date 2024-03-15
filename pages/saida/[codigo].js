@@ -188,8 +188,6 @@ function Saida() {
                 <Label for="descricao">Descricao</Label>
                 <Input type="text" id="descricao" onChange={mudarDescricao} />
 
-                <Label for="valor">Valor</Label>
-                <Input type="text" id="valor" onChange={mudarValor} />
                 <Table className={styles.tabela}>
                     <tr >
 
@@ -205,6 +203,10 @@ function Saida() {
 
                 <Row>
                     <Col md={2}>
+                        <Label for="valor">Valor</Label>
+                        <Input type="text" id="valor" onChange={mudarValor} />
+                    </Col>
+                    <Col md={2}>
                         <FormGroup>
                             <Label for="mes">Mês</Label>
                             <Input type="number" id="mes" onChange={mudarMes} />
@@ -218,7 +220,6 @@ function Saida() {
                     </Col>
                     <Col md={5}>
                         <FormGroup>
-                            <div> </div>
                             <Button color="danger" onClick={adicionar}>Adicionar</Button>
                         </FormGroup>
                     </Col>
