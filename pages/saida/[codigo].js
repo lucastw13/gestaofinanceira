@@ -208,7 +208,7 @@ function Saida() {
                 <Label for="ano">Ano</Label>
                 <Input type="number" id="ano" onChange={mudarAno} />
 
-                <Button color="danger" onClick={adicionar}>Adicionar</Button>
+                <Button color="danger" onClick={()=>adicionar()}>Adicionar</Button>
                 <Table>
                     <thead>
                         <tr>
