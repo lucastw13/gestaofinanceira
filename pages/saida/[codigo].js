@@ -133,6 +133,8 @@ function Saida() {
                 setItem(itemTemp)
                 console.log(listaCompetenciaTemp)
                 setListaCompetencia(listaCompetenciaTemp)
+                toggleModalInformacao()
+                toggleModalInformacao()
             }
         }
     }
