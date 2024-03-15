@@ -1,6 +1,6 @@
 import { useState, React, useEffect } from 'react';
 import Menu from '../menu.js';
-import { Container, Label, Input, Button, Table, Form, Modal, ModalBody, ModalHeader, ModalFooter,FormGroup,Row,Col } from 'reactstrap';
+import { Container, Label, Input, Button, Table, Form, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
@@ -217,7 +217,10 @@ function Saida() {
                         </FormGroup>
                     </Col>
                     <Col md={5}>
-                        <Button color="danger" onClick={adicionar}>Adicionar</Button>
+                        <FormGroup>
+                            <div> </div>
+                            <Button color="danger" onClick={adicionar}>Adicionar</Button>
+                        </FormGroup>
                     </Col>
                 </Row>
                 <Table>
