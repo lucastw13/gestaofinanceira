@@ -217,8 +217,9 @@ function Saida() {
                             <Button color="danger" onClick={adicionar}>Adicionar</Button>
                         </td>
                     </tr>
-                    <Table>
-                    </Table>
+                </Table>
+                <Table>
+
                     <thead>
                         <tr>
                             <th>
