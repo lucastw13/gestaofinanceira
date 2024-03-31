@@ -25,14 +25,14 @@ function Saida() {
         Dado.listar("saida")
             .then(response => {
                 if (response.data != null) {
-                    if (response.data.status == true) {
+                    if (response.data.status) {
                         setLista(response.data.lista);
                         setListaRecorrente(response.data.listaRecorrente);
                         console.log(document.getElementById("recorrente").checked)
-                        if(document.getElementById("recorrente").checked==true){
-                            setListaExibir(response.data.lista)
-                        }else{
+                        if(document.getElementById("recorrente").checked){
                             setListaExibir(response.data.listaRecorrente)
+                        }else{
+                            setListaExibir(response.data.lista)
                         }
                     } else {
                         setLista([])
