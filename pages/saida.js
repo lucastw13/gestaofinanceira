@@ -29,7 +29,7 @@ function Saida() {
                         setLista(response.data.lista);
                         setListaExibir(response.data.lista)
                         setListaRecorrente(response.data.listaRecorrente);
-                        document.getElementById("recorrente") = false
+                        document.getElementById("recorrente").checked = false
                     } else {
                         setLista([])
                         console.log("error: " + response.data.descricao)
