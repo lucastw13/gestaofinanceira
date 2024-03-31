@@ -28,7 +28,7 @@ function Saida() {
                     if (response.data.status == true) {
                         setLista(response.data.lista);
                         setListaRecorrente(response.data.listaRecorrente);
-
+                        console.log(document.getElementById("recorrente").checked)
                         if(document.getElementById("recorrente").checked){
                             setListaExibir(response.data.lista)
                         }else{
