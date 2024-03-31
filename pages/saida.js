@@ -29,7 +29,7 @@ function Saida() {
                         setLista(response.data.lista);
                         setListaRecorrente(response.data.listaRecorrente);
                         console.log(document.getElementById("recorrente").checked)
-                        if(document.getElementById("recorrente").checked){
+                        if(document.getElementById("recorrente").checked==true){
                             setListaExibir(response.data.lista)
                         }else{
                             setListaExibir(response.data.listaRecorrente)
