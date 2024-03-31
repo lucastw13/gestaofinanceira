@@ -27,9 +27,13 @@ function Saida() {
                 if (response.data != null) {
                     if (response.data.status == true) {
                         setLista(response.data.lista);
-                        setListaExibir(response.data.lista)
                         setListaRecorrente(response.data.listaRecorrente);
-                        document.getElementById("recorrente").checked = false;
+
+                        if(document.getElementById("recorrente").checked){
+                            setListaExibir(response.data.lista)
+                        }else{
+                            setListaExibir(response.data.listaRecorrente)
+                        }
                     } else {
                         setLista([])
                         console.log("error: " + response.data.descricao)
