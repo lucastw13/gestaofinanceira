@@ -26,6 +26,7 @@ function Saida() {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
             if (router.query.codigo == "incluir") {
                 setItem({ recorrente: false, mozao: false, competencia: [] })
+                setListaCompetencia([])
             } else {
                 listar(router.query.codigo)
             }
@@ -141,6 +142,10 @@ function Saida() {
             setTextoModal("Preencha todos os Campos obrigatórios!")
             toggleModalInformacao()
         } else {
+            if(!item.recorrente){
+                item.mes = ""
+                item.ano = ""
+            }
             Dado.salvar(item, "saida").then(response => {
                 if (response.data != null) {
                     if (response.data.status == true) {
