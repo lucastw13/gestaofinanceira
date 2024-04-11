@@ -6,6 +6,8 @@ import Dado from '../../dado/generico.js'
 import { useRouter } from 'next/router'
 import Host from '../../dado/host.js';
 import Carregamento from '../carregamento.js';
+import styles from './[codigo].module.css'
+
 function Saida() {
     const [item, setItem] = useState("");
     const [listaCompetencia, setListaCompetencia] = useState("");
@@ -145,8 +147,6 @@ function Saida() {
         setItem(pItem)
         setListaCompetencia(pItem.competencia)
         toggleModalAdicionar()
-        //setTextoModal("Adicionado com sucesso")
-        //toggleModalInformacao()
 
     }
     function salvar() {
@@ -207,7 +207,7 @@ function Saida() {
         <Container>
             <Menu descricao="Saídas" />
             <Form>
-            <Button color="danger" onClick={salvar}>Salvar</Button>
+            <Button color="danger" className={styles.botaoDireita} onClick={salvar}>Salvar</Button>
                 <Row>
                     <Col md={10}>
                         <FormGroup>
