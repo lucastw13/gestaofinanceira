@@ -198,7 +198,11 @@ function Saida() {
         toggleModal()
 
     }
-
+function preencherCamposEdicao(pItem){
+    document.getElementById("valor").value = pItem.valor;
+    document.getElementById("mes").value = pItem.mes;
+    document.getElementById("ano").value = pItem.ano;
+}
     return (
         <Container>
             <Menu descricao="Saídas" />
@@ -268,7 +272,7 @@ function Saida() {
                     </thead>
                     <tbody>
                         {listaCompetencia && listaCompetencia.map((item) => (
-                            <tr>
+                            <tr onClick={() => preencherCamposEdicao(item)}>
                                 <td>
                                     {item.mes}
                                 </td>
