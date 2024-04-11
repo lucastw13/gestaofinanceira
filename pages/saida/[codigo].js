@@ -120,7 +120,7 @@ function Saida() {
             for (var itemCompetenciaTemp of item.competencia) {
                 if ((itemCompetenciaTemp.mes == mes) && (itemCompetenciaTemp.ano == ano)) {
                     possuiCompetencia = true
-                }else{
+                } else {
                     listaCompetenciaTemp.push(itemCompetenciaTemp)
                 }
             }
@@ -130,13 +130,13 @@ function Saida() {
             listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.ano - item2.ano)
             itemTemp.competencia = listaCompetenciaTemp
             if (possuiCompetencia) {
-                setTextoModal("Competencia "+mes+"/"+ano+" já inclusa, deseja atualizá-la?")
+                setTextoModal("Competencia " + mes + "/" + ano + " já inclusa, deseja atualizá-la?")
                 setItemModal(itemTemp)
                 toggleModalAdicionar()
             } else {
                 setItem(itemTemp)
                 setListaCompetencia(listaCompetenciaTemp)
-                setTextoModal(mes+"/"+ano+" Adicionado com sucesso")
+                setTextoModal(mes + "/" + ano + " Adicionado com sucesso")
                 toggleModalInformacao()
             }
         }
@@ -154,7 +154,7 @@ function Saida() {
             setTextoModal("Preencha todos os Campos obrigatórios!")
             toggleModalInformacao()
         } else {
-            if(!item.recorrente){
+            if (!item.recorrente) {
                 item.mes = ""
                 item.ano = ""
             }
@@ -180,7 +180,7 @@ function Saida() {
 
     function deletarToggle(pItem) {
         setItemModal(pItem)
-        setTextoModal("Deseja excluir a competência: "+pItem.mes+"/"+pItem.ano+"?")
+        setTextoModal("Deseja excluir a competência: " + pItem.mes + "/" + pItem.ano + "?")
         toggleModal()
     }
 
@@ -198,11 +198,11 @@ function Saida() {
         toggleModal()
 
     }
-function preencherCamposEdicao(pItem){
-    document.getElementById("valor").value = pItem.valor;
-    document.getElementById("mes").value = pItem.mes;
-    document.getElementById("ano").value = pItem.ano;
-}
+    function preencherCamposEdicao(pItem) {
+        document.getElementById("valor").value = pItem.valor;
+        document.getElementById("mes").value = pItem.mes;
+        document.getElementById("ano").value = pItem.ano;
+    }
     return (
         <Container>
             <Menu descricao="Saídas" />
@@ -251,7 +251,7 @@ function preencherCamposEdicao(pItem){
                     </Col>
                     <Col md={5}>
                         <FormGroup>
-                            <Button color="danger" onClick={adicionar}>Adicionar</Button>
+                            <br /> <img src='/+.png' width="20px" onClick={() => adicionar()} />
                         </FormGroup>
                     </Col>
                 </Row>
@@ -321,7 +321,7 @@ function preencherCamposEdicao(pItem){
                 <Carregamento />
             }
 
-<           Modal isOpen={modalAdicionar} toggle={toggleModalAdicionar}>
+            <           Modal isOpen={modalAdicionar} toggle={toggleModalAdicionar}>
                 <ModalHeader toggle={toggleModalAdicionar}>Confirmação</ModalHeader>
                 <ModalBody>
                     {textoModal}
