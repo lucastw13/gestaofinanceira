@@ -207,7 +207,7 @@ function Saida() {
         <Container>
             <Menu descricao="Saídas" />
             <Form>
-            <Button color="danger" className={styles.botaoDireita} onClick={salvar}>Salvar</Button>
+            
                 <Row>
                     <Col md={10}>
                         <FormGroup>
@@ -251,7 +251,7 @@ function Saida() {
                     </Col>
                     <Col md={5}>
                         <FormGroup>
-                            <br/><Button color="danger" onClick={adicionar}>Adicionar</Button>
+                            <Button color="danger" onClick={adicionar}>Adicionar</Button>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -294,7 +294,7 @@ function Saida() {
                 </Table>
 
 
-                
+                <Button color="danger" onClick={salvar}>Salvar</Button>
             </Form>
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Confirmação</ModalHeader>
