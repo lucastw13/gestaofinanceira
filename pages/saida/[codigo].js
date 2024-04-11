@@ -21,7 +21,9 @@ function Saida() {
 
     const toggleModalInformacao = () => setModalInformacao(!modalInformacao);
 
+    const [modalAdicionar, setModalAdicionar] = useState(false);
 
+    const toggleModalAdicionar = () => setModalAdicionar(!modalAdicionar);
     useEffect(() => {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
             if (router.query.codigo == "incluir") {
@@ -114,28 +116,38 @@ function Saida() {
             var ano = parseInt(ano)
             var valor = parseFloat(valor)
             var possuiCompetencia = false
+            var listaCompetenciaTemp = []
             for (var itemCompetenciaTemp of item.competencia) {
                 if ((itemCompetenciaTemp.mes == mes) && (itemCompetenciaTemp.ano == ano)) {
                     possuiCompetencia = true
-                    break
+                }else{
+                    listaCompetenciaTemp.push(itemCompetenciaTemp)
                 }
             }
+            var itemTemp = JSON.parse(JSON.stringify(item))
+            listaCompetenciaTemp.push({ mes: mes, ano: ano, valor: valor })
+            listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.mes - item2.mes)
+            listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.ano - item2.ano)
+            itemTemp.competencia = listaCompetenciaTemp
             if (possuiCompetencia) {
-                setTextoModal("Competencia já inclusa!")
-                toggleModalInformacao()
+                setTextoModal("Competencia "+mes+"/"+ano+" já inclusa, deseja atualizá-la?")
+                setItemModal(itemTemp)
+                toggleModalAdicionar()
             } else {
-                var listaCompetenciaTemp = listaCompetencia
-                var itemTemp = item
-                listaCompetenciaTemp.push({ mes: mes, ano: ano, valor: valor })
-                listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.mes - item2.mes)
-                listaCompetenciaTemp = listaCompetenciaTemp.sort((item1, item2) => item1.ano - item2.ano)
-                itemTemp.competencia = listaCompetenciaTemp
                 setItem(itemTemp)
                 setListaCompetencia(listaCompetenciaTemp)
                 setTextoModal(mes+"/"+ano+" Adicionado com sucesso")
                 toggleModalInformacao()
             }
         }
+    }
+    function adicionarSemCritica(pItem) {
+        setItem(pItem)
+        setListaCompetencia(pItem.competencia)
+        toggleModalAdicionar()
+        //setTextoModal("Adicionado com sucesso")
+        //toggleModalInformacao()
+
     }
     function salvar() {
         if (possuiErroObrigatorio()) {
@@ -168,6 +180,7 @@ function Saida() {
 
     function deletarToggle(pItem) {
         setItemModal(pItem)
+        setTextoModal("Deseja excluir a competência: "+pItem.mes+"/"+pItem.ano+"?")
         toggleModal()
     }
 
@@ -265,6 +278,7 @@ function Saida() {
                                 <td>
                                     {item.valor}
                                 </td>
+
                                 <td>
                                     <img src='/x.png' width="20px" onClick={() => deletarToggle(item)} />
 
@@ -281,7 +295,7 @@ function Saida() {
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Confirmação</ModalHeader>
                 <ModalBody>
-                    Deseja excluir a competência: {itemModal.mes}/{itemModal.ano}?
+                    {textoModal}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="danger" onClick={() => deletar(itemModal)}>
@@ -302,6 +316,21 @@ function Saida() {
                 carregando &&
                 <Carregamento />
             }
+
+<           Modal isOpen={modalAdicionar} toggle={toggleModalAdicionar}>
+                <ModalHeader toggle={toggleModalAdicionar}>Confirmação</ModalHeader>
+                <ModalBody>
+                    {textoModal}
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" onClick={() => adicionarSemCritica(itemModal)}>
+                        OK
+                    </Button>{' '}
+                    <Button color="secondary" onClick={toggleModalAdicionar}>
+                        Cancelar
+                    </Button>
+                </ModalFooter>
+            </Modal>
         </Container >
     );
 }
