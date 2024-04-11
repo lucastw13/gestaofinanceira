@@ -251,7 +251,7 @@ function Saida() {
                     </Col>
                     <Col md={5}>
                         <FormGroup>
-                            <br /> <img src='/+.png' width="20px" onClick={() => adicionar()} />
+                            <br/><Button color="danger" onClick={adicionar}>Adicionar</Button>
                         </FormGroup>
                     </Col>
                 </Row>
