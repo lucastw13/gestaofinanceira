@@ -69,6 +69,9 @@ function Entrada() {
                             Descrição
                         </th>
                         <th>
+                            Período
+                        </th>
+                        <th>
                             Valor
                         </th>
                         <th>
