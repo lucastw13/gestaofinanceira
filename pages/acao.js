@@ -1,12 +1,12 @@
 import { useState, React, useEffect } from 'react';
 import Menu from './menu.js';
-import { Container, Table,Modal, ModalBody,ModalFooter,ModalHeader,Button } from 'reactstrap';
+import { Container, Table, Label, Input, ModalFooter, Modal, ModalBody, ModalHeader ,Button} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../dado/generico.js';
 import Host from '../dado/host.js';
 import { useRouter } from 'next/router'
 import Carregamento from './carregamento.js';
-function Entrada() {
+function Acao() {
     const [lista, setLista] = useState("");
     const router = useRouter();
     const [carregando, setCarregando] = useState("")
@@ -19,11 +19,11 @@ function Entrada() {
 
     function listar() {
         setCarregando(true)
-        Dado.listar("entrada")
+        Dado.listar("acao")
             .then(response => {
                 if (response.data != null) {
-                    if (response.data.status == true) {
-                        setLista(response.data.lista)
+                    if (response.data.status) {
+                        setLista(response.data.lista);
                     } else {
                         setLista([])
                         console.log("error: " + response.data.descricao)
@@ -43,7 +43,7 @@ function Entrada() {
         toggleModal()
     }
     function deletar(item) {
-        Dado.deletar(item._id, "entrada")
+        Dado.deletar(item._id, "acao")
             .then(response => {
                 if (response.data != null) {
                     if (response.data.status == true) {
@@ -58,10 +58,13 @@ function Entrada() {
             .finally(() => {
                 toggleModal()
             });
+
+
     }
+
     return (
         <Container>
-            <Menu descricao="Entradas" />
+            <Menu descricao="Saídas" />
             <Table>
                 <thead>
                     <tr>
@@ -69,28 +72,17 @@ function Entrada() {
                             Descrição
                         </th>
                         <th>
-                            Valor
-                        </th>
-                        <th>
-                            <a href={Host.url() + "/entrada/incluir"}>
+                            <a href={Host.url() + "/acao/incluir"}>
                                 <img src='/+.png' width="20px" />
                             </a>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {lista && lista.map((item) => (
-
+                    {lista&& lista.map((item) => (
                         <tr>
-                            <td onClick={() => router.push(Host.url() + "/entrada/" + item._id)}>
+                            <td onClick={() => router.push(Host.url() + "/acao/" + item._id)}>
                                 {item.descricao}
-                            </td>
-                            <td>
-                                {item.periodo}
-                            </td>
-                            
-                            <td>
-                                {item.valor}
                             </td>
                             <td>
                                 <img src='/x.png' width="20px" onClick={() => deletarToggle(item)} />
@@ -99,17 +91,16 @@ function Entrada() {
 
                         </tr>
 
-
                     ))}
                 </tbody>
             </Table>
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Confirmação</ModalHeader>
                 <ModalBody>
-                    Deseja excluir a entrada:  {itemModal.descricao}
+                    Deseja excluir a saída:  {itemModal.descricao}
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" onClick={() => deletar(itemModal)}>
+                    <Button color="danger" onClick={()=>deletar(itemModal)}>
                         OK
                     </Button>{' '}
                     <Button color="secondary" onClick={toggleModal}>
@@ -117,6 +108,9 @@ function Entrada() {
                     </Button>
                 </ModalFooter>
             </Modal>
+            {carregando &&
+                <Carregamento />
+            }
             {carregando &&
                 <Carregamento />
             }
@@ -128,7 +122,7 @@ function Entrada() {
 
 
 function Pagina() {
-    return <Entrada />
+    return <Acao />
 }
 
 

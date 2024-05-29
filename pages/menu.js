@@ -71,9 +71,7 @@ function Menu({ descricao }) {
 
     return (
         <Container>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2866604552328948"
-     crossorigin="anonymous"></script>
-            Autenticado <img src='/sair.png' width="20px" onClick={sair} />
+                   Autenticado <img src='/sair.png' width="20px" onClick={sair} />
 
 
             <Navbar color="faded" light>
