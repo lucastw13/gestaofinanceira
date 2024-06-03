@@ -1,6 +1,6 @@
 import { useState, React, useEffect } from 'react';
 import Menu from './menu.js';
-import { Container, Table, Label, Input, ModalFooter, Modal, ModalBody, ModalHeader ,Button} from 'reactstrap';
+import { Container, Table, Label, Input, ModalFooter, Modal, ModalBody, ModalHeader ,Button,Row,Col,FormGroup} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dado from '../dado/generico.js';
 import Host from '../dado/host.js';
@@ -15,6 +15,7 @@ function Acao() {
     const toggleModal = () => setModal(!modal);
     const [vpa, setVpa] = useState("");
     const [lpa, setLpa] = useState("");
+    const [graham, setGraham] = useState("");
     
     useEffect(() => {
         listar()
@@ -68,7 +69,7 @@ function Acao() {
         var tempLpa = event.target.value
         if ((tempLpa != "") && (tempLpa != undefined)) {
             setLpa(tempLpa)
-            if ((vpa != "") && (vpa != undefined)) {
+            if ((vpa != "") && (22.5*vpa != undefined)) {
                 setGraham(Math.sqrt(tempLpa * vpa))
             }
         }
@@ -78,7 +79,7 @@ function Acao() {
         if ((tempVpa != "") && (tempVpa != undefined)) {
             setVpa(tempVpa)
             if ((lpa != "") && (lpa != undefined)) {
-                setGraham(Math.sqrt(lpa * tempVpa))
+                setGraham(Math.sqrt(22.5*lpa * tempVpa))
             }
         }
     }
