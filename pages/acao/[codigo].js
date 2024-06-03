@@ -14,6 +14,8 @@ function Acao() {
     const router = useRouter()
     const [carregando, setCarregando] = useState("")
     const [itemModal, setItemModal] = useState("");
+    const [vpa, setVpa] = useState("");
+    const [lpa, setLpa] = useState("");
     const [modal, setModal] = useState(false);
     const toggleModal = () => setModal(!modal);
 
@@ -29,7 +31,7 @@ function Acao() {
     useEffect(() => {
         if ((router.query.codigo != "") && (router.query.codigo != undefined)) {
             if (router.query.codigo == "incluir") {
-                setItem({compra: [] })
+                setItem({ compra: [] })
                 setListaCompra([])
             } else {
                 listar(router.query.codigo)
@@ -78,7 +80,7 @@ function Acao() {
         var ano = document.getElementById("ano").value
         var valor = document.getElementById("valor").value
         var quantidade = document.getElementById("quantidade").value
-        if ((dia == "") || (dia == undefined) ||(mes == "") || (mes == undefined) || (ano == "") || (ano == undefined) || (valor == "") || (valor == undefined)) {
+        if ((dia == "") || (dia == undefined) || (mes == "") || (mes == undefined) || (ano == "") || (ano == undefined) || (valor == "") || (valor == undefined)) {
             setTextoModal("Preencha todos os Campos obrigatórios!")
             toggleModalInformacao()
         } else {
@@ -91,13 +93,13 @@ function Acao() {
             var listaCompraTemp = []
             for (var itemCompraTemp of item.compra) {
                 //if ((itemCompraTemp.mes == mes) && (itemCompraTemp.ano == ano)) {
-                 //   possuiCompra = true
+                //   possuiCompra = true
                 //} else {
-                    listaCompraTemp.push(itemCompraTemp)
+                listaCompraTemp.push(itemCompraTemp)
                 //}
             }
             var itemTemp = JSON.parse(JSON.stringify(item))
-            listaCompraTemp.push({dia:dia, mes: mes, ano: ano, valor: valor ,quantidade:quantidade})
+            listaCompraTemp.push({ dia: dia, mes: mes, ano: ano, valor: valor, quantidade: quantidade })
             listaCompraTemp = listaCompraTemp.sort((item1, item2) => item1.dia - item2.dia)
             listaCompraTemp = listaCompraTemp.sort((item1, item2) => item1.mes - item2.mes)
             listaCompraTemp = listaCompraTemp.sort((item1, item2) => item1.ano - item2.ano)
@@ -107,10 +109,10 @@ function Acao() {
             //    setItemModal(itemTemp)
             //    toggleModalAdicionar()
             //} else {
-                setItem(itemTemp)
-                setListaCompra(listaCompraTemp)
-                setTextoModal(dia+"/"+mes + "/" + ano + " Adicionado com sucesso")
-                toggleModalInformacao()
+            setItem(itemTemp)
+            setListaCompra(listaCompraTemp)
+            setTextoModal(dia + "/" + mes + "/" + ano + " Adicionado com sucesso")
+            toggleModalInformacao()
             //}
         }
     }
@@ -156,11 +158,36 @@ function Acao() {
         toggleModal()
     }
 
+    function mudarLpa(event) {
+        var tempLpa = event.target.value
+        if ((tempLpa != "") && (tempLpa != undefined)) {
+            setLpa(tempLpa)
+            if ((vpa != "") && (vpa != undefined)) {
+                setGraham(Math.sqrt(tempLpa * vpa))
+            }
+        }
+    }
+    function mudarVpa(event) {
+        var tempVpa = event.target.value
+        if ((tempVpa != "") && (tempVpa != undefined)) {
+            setVpa(tempVpa)
+            if ((lpa != "") && (lpa != undefined)) {
+                setGraham(Math.sqrt(lpa * tempVpa))
+            }
+        }
+    }
+    function calcularGraham() {
+        if ((lpa != "") && (lpa != undefined) && (vpa != "") && ())
+            setItemModal(pItem)
+        setTextoModal("Deseja excluir a competência: " + pItem.mes + "/" + pItem.ano + "?")
+        toggleModal()
+    }
+
     function deletar(pItem) {
         var itemTemp = item
         var listaCompraTemp = []
         for (var itemCompraTemp of listaCompra) {
-            if ((itemCompraTemp.dia != pItem.dia) ||(itemCompraTemp.mes != pItem.mes) || (itemCompraTemp.ano != pItem.ano)) {
+            if ((itemCompraTemp.dia != pItem.dia) || (itemCompraTemp.mes != pItem.mes) || (itemCompraTemp.ano != pItem.ano)) {
                 listaCompraTemp.push(itemCompraTemp)
             }
         }
@@ -179,22 +206,34 @@ function Acao() {
         <Container>
             <Menu descricao="Saídas" />
             <Form>
-            
+
                 <Row>
-                    <Col md={10}>
+                    <Col md={2}>
                         <FormGroup>
-                            <Label for="descricao">Descricao</Label>
-                            <Input type="text" id="descricao" onChange={mudarDescricao} />
+                            <Label for="lpa">LPA</Label>
+                            <Input type="text" id="lpa" onChange={mudarLpa} />
                         </FormGroup>
                     </Col>
                 </Row>
+                <Row>
+                    <Col md={2}>
+                        <FormGroup>
+                            <Label for="vpa">VPA</Label>
+                            <Input type="text" id="vpa" onChange={mudarVpa} />
+                        </FormGroup>
+                    </Col>
+                    <Col md={2}>
+                        Graham: {graham}
+                    </Col>
+                </Row>
+
                 <Row>
                     <Row>
                     </Row>
                     <Col md={2}>
                         <FormGroup>
                             <Label for="valor">Valor</Label>
-                            <Input type="text" id="valor"/>
+                            <Input type="text" id="valor" />
                         </FormGroup>
                     </Col>
                     <Col md={2}>
