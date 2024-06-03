@@ -13,6 +13,9 @@ function Acao() {
     const [itemModal, setItemModal] = useState("");
     const [modal, setModal] = useState(false);
     const toggleModal = () => setModal(!modal);
+    const [vpa, setVpa] = useState("");
+    const [lpa, setLpa] = useState("");
+    
     useEffect(() => {
         listar()
     }, [])
@@ -61,10 +64,46 @@ function Acao() {
 
 
     }
+    function mudarLpa(event) {
+        var tempLpa = event.target.value
+        if ((tempLpa != "") && (tempLpa != undefined)) {
+            setLpa(tempLpa)
+            if ((vpa != "") && (vpa != undefined)) {
+                setGraham(Math.sqrt(tempLpa * vpa))
+            }
+        }
+    }
+    function mudarVpa(event) {
+        var tempVpa = event.target.value
+        if ((tempVpa != "") && (tempVpa != undefined)) {
+            setVpa(tempVpa)
+            if ((lpa != "") && (lpa != undefined)) {
+                setGraham(Math.sqrt(lpa * tempVpa))
+            }
+        }
+    }
+
 
     return (
         <Container>
             <Menu descricao="Saídas" />
+            <Row>
+                    <Col md={2}>
+                        <FormGroup>
+                            <Label for="lpa">LPA</Label>
+                            <Input type="text" id="lpa" onChange={mudarLpa} />
+                        </FormGroup>
+                    </Col>
+                    <Col md={2}>
+                        <FormGroup>
+                            <Label for="vpa">VPA</Label>
+                            <Input type="text" id="vpa" onChange={mudarVpa} />
+                        </FormGroup>
+                    </Col>
+                    <Col md={2}>
+                        Graham: {graham}
+                    </Col>
+                </Row>
             <Table>
                 <thead>
                     <tr>
