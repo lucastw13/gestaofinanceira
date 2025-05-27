@@ -70,7 +70,7 @@ function Acao() {
         if ((tempLpa != "") && (tempLpa != undefined)) {
             setLpa(tempLpa)
             if ((vpa != "") && (vpa != undefined)) {
-                setGraham(Math.sqrt(22.5*lpa * tempVpa))
+                setGraham(Math.sqrt(22.5*vpa * tempLpa))
             }
         }
     }
