@@ -66,11 +66,12 @@ function Acao() {
 
     }
     function mudarLpa(event) {
+        conso
         var tempLpa = event.target.value
         if ((tempLpa != "") && (tempLpa != undefined)) {
             setLpa(tempLpa)
-            if ((vpa != "") && (22.5*vpa != undefined)) {
-                setGraham(Math.sqrt(tempLpa * vpa))
+            if ((vpa != "") && (vpa != undefined)) {
+                setGraham(Math.sqrt(22.5*lpa * tempVpa))
             }
         }
     }
