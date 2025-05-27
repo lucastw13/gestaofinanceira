@@ -66,7 +66,6 @@ function Acao() {
 
     }
     function mudarLpa(event) {
-        conso
         var tempLpa = event.target.value
         if ((tempLpa != "") && (tempLpa != undefined)) {
             setLpa(tempLpa)
