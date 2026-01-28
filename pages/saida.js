@@ -7,6 +7,11 @@ import Host from '../dado/host.js';
 import { useRouter } from 'next/router'
 import Carregamento from './carregamento.js';
 function Saida() {
+    const [porcentagemInvestimento, setPorcentagemInvestimento] = useState("");
+    const [valorAvista, setValorAvista] = useState("");
+    const [valorParcela, setValorParcela] = useState("");
+    const [qtdParcela , setQtdParcela] = useState("");
+    const [valorRestante, setValorRestante] = useState("");
     const [lista, setLista] = useState("");
     
     const [listaRecorrente, setListaRecorrente] = useState("");
@@ -79,6 +84,41 @@ function Saida() {
             setListaExibir(lista)
         }
     }
+
+    function mudarPorcentagemInvestimento(event) {
+        setPorcentagemInvestimento(event.target.value);
+        calculoCompra()
+    }
+
+    function mudarValorAvista(event) {
+        setValorAvista(event.target.value);
+        calculoCompra()
+    }
+
+    function mudarValorParcela(event) {
+        setValorParcela(event.target.value);
+        calculoCompra()
+    }
+
+    function mudarQtdParcela(event) {
+        setQtdParcela(event.target.value);
+        calculoCompra()
+    }
+
+    function calculoCompra(){
+        if((porcentagemInvestimento!="")
+         &&(valorAvista!="")
+         &&(valorParcela!="")
+         &&(qtdParcela!="")){
+            let valorRestanteTemp = valorAvista
+            for(let contador=1;contador<=qtdParcela;contador++){
+                valorRestanteTemp *= (1+(porcentagemInvestimento/12/100))
+                valorRestanteTemp -= valorParcela
+            }
+            setValorRestante(valorRestanteTemp)
+        }
+			
+    }
     return (
         <Container>
             <Menu descricao="Saídas" />
@@ -119,6 +159,21 @@ function Saida() {
                     ))}
                 </tbody>
             </Table>
+
+            <Label for="porcentagemInvestimento">porcentagemInvestimento</Label>
+            <Input type="text" id="porcentagemInvestimento" onChange={mudarPorcentagemInvestimento} />
+
+            <Label for="valorAvista">valorAvista</Label>
+            <Input type="text" id="valorAvista" onChange={mudarValorAvista} />
+
+            <Label for="valorParcela">valorParcela</Label>
+            <Input type="text" id="valorParcela" onChange={mudarValorParcela} />
+
+            <Label for="qtdParcela">qtdParcela</Label>
+            <Input type="text" id="qtdParcela" onChange={mudarQtdParcela} />
+
+            <h1>{valorRestante}</h1>
+
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Confirmação</ModalHeader>
                 <ModalBody>
