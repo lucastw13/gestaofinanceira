@@ -173,6 +173,9 @@ function Saida() {
             <Input type="text" id="qtdParcela" onChange={mudarQtdParcela} />
 
             <h1>{valorRestante}</h1>
+            <Button color="danger" onClick={() => calculoCompra()}>
+            Calcular
+             </Button>
 
             <Modal isOpen={modal} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Confirmação</ModalHeader>
