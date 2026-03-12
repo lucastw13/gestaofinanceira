@@ -117,6 +117,7 @@ function Saida() {
                     var porcentagemInvestimento = 0
                     response.data.forEach(function(data, index) {
                         soma += data.valor
+                        console.log("porcentagem="+data.valor)
                     });
                     porcentagemInvestimento = (soma/quantidade)*365
                     if((porcentagemInvestimento!="")
