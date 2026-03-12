@@ -120,6 +120,7 @@ function Saida() {
                         console.log("porcentagem="+data.valor)
                     });
                     porcentagemInvestimento = (soma/quantidade)*365
+                    console.log("porcentagemInvestimento="+porcentagemInvestimento)
                     if((porcentagemInvestimento!="")
                     &&(valorAvista!="")
                     &&(valorParcela!="")
