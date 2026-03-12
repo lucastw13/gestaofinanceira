@@ -161,7 +161,7 @@ function Saida() {
             </Table>
 
             <Label for="porcentagemInvestimento">porcentagemInvestimento</Label>
-            <Input type="text" id="porcentagemInvestimento" onChange={mudarPorcentagemInvestimento} />
+            <Input type="text" id="porcentagemInvestimentoAnual" onChange={mudarPorcentagemInvestimento} />
 
             <Label for="valorAvista">valorAvista</Label>
             <Input type="text" id="valorAvista" onChange={mudarValorAvista} />
