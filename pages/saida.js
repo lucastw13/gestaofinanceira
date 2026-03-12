@@ -114,12 +114,12 @@ function Saida() {
                 if (response.data != null) {
                     var porcentagemInvestimentoTemp = porcentagemInvestimento
                     if((porcentagemInvestimentoTemp=="")||(porcentagemInvestimentoTemp==null)){
-                        var quantidade = response.data.length
-                        var soma = 0
+                       
+                        var fator = 1;
                         response.data.forEach(function(data, index) {
-                            soma += parseFloat(data.valor)
+                            fator *= (1 + parseFloat(data.valor) / 100);
                         });
-                        porcentagemInvestimentoTemp = (soma/quantidade)*365
+                        porcentagemInvestimentoTemp = (fator - 1) * 100
                     }
                     if((porcentagemInvestimentoTemp!="")
                     &&(valorAvista!="")
