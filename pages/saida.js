@@ -105,7 +105,7 @@ function Saida() {
 
     function calculoCompra(){
         var dateTime = new Date()
-        var dia = dateTime.getDay()-1
+        var dia = dateTime.getDate()-1
         var mes = dateTime.getMonth()+1
         var ano = dateTime.getFullYear()
         var anoInicio = ano-1
