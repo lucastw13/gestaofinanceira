@@ -6,6 +6,8 @@ import Dado from '../dado/generico.js';
 import Host from '../dado/host.js';
 import { useRouter } from 'next/router'
 import Carregamento from './carregamento.js';
+import axios from 'axios';
+
 function Saida() {
     const [porcentagemInvestimento, setPorcentagemInvestimento] = useState("");
     const [valorAvista, setValorAvista] = useState("");
@@ -87,26 +89,56 @@ function Saida() {
 
     function mudarPorcentagemInvestimento(event) {
         setPorcentagemInvestimento(event.target.value);
-        calculoCompra()
     }
 
     function mudarValorAvista(event) {
         setValorAvista(event.target.value);
-        calculoCompra()
     }
 
     function mudarValorParcela(event) {
         setValorParcela(event.target.value);
-        calculoCompra()
     }
 
     function mudarQtdParcela(event) {
         setQtdParcela(event.target.value);
-        calculoCompra()
     }
 
     function calculoCompra(){
-        if((porcentagemInvestimento!="")
+        var dateTime = new Date()
+        var dia = dateTime.getDay()-1
+        var mes = dateTime.getMonth()+1
+        var ano = dateTime.getFullYear()
+        var anoInicio = ano-1
+        axios.get("https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados?formato=json&dataInicial="+dia+"/"+mes+"/"+anoInicio+"&dataFinal="+dia+"/"+mes+"/"+ano)
+            .then(response => {
+                if (response.data != null) {
+                    var quantidade = response.length
+                    var soma = 0
+                    var porcentagemInvestimento = 0
+                    response.data.forEach(function(data, index) {
+                        soma += data.valor
+                    });
+                    porcentagemInvestimento = (soma/quantidade)*365
+                    if((porcentagemInvestimento!="")
+                    &&(valorAvista!="")
+                    &&(valorParcela!="")
+                    &&(qtdParcela!="")){
+                        let valorRestanteTemp = valorAvista
+                        for(let contador=1;contador<=qtdParcela;contador++){
+                            valorRestanteTemp *= (1+(Math.pow(1 + (porcentagemInvestimento/100), 1/12) - 1))
+                            valorRestanteTemp -= valorParcela
+                        }
+                        setValorRestante(valorRestanteTemp)
+                    }
+                }
+            }, (error) => {
+                console.log("error: " + error)
+            })
+            .finally(() => {
+                toggleModal()
+            });
+            
+       /* if((porcentagemInvestimento!="")
          &&(valorAvista!="")
          &&(valorParcela!="")
          &&(qtdParcela!="")){
@@ -116,7 +148,7 @@ function Saida() {
                 valorRestanteTemp -= valorParcela
             }
             setValorRestante(valorRestanteTemp)
-        }
+        }*/
 			
     }
     return (
