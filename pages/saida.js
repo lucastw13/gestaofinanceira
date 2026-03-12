@@ -134,9 +134,6 @@ function Saida() {
             }, (error) => {
                 console.log("error: " + error)
             })
-            .finally(() => {
-                toggleModal()
-            });
             
        /* if((porcentagemInvestimento!="")
          &&(valorAvista!="")
