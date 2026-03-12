@@ -125,10 +125,12 @@ function Saida() {
                     &&(valorParcela!="")
                     &&(qtdParcela!="")){
                         let valorRestanteTemp = valorAvista
+                        console.log("valorAvista="+valorAvista)
                         for(let contador=1;contador<=qtdParcela;contador++){
                             valorRestanteTemp *= (1+(Math.pow(1 + (porcentagemInvestimento/100), 1/12) - 1))
                             valorRestanteTemp -= valorParcela
                         }
+                         console.log("valorRestanteTemp="+valorRestanteTemp)
                         setValorRestante(valorRestanteTemp)
                     }
                 }
