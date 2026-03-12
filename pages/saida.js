@@ -116,7 +116,7 @@ function Saida() {
                     var soma = 0
                     var porcentagemInvestimento = 0
                     response.data.forEach(function(data, index) {
-                        soma += data.valor
+                        soma += parseFloat(data.valor)
                         console.log("porcentagem="+data.valor)
                     });
                     console.log("soma="+soma)
