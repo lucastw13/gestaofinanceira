@@ -112,28 +112,22 @@ function Saida() {
         axios.get("https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados?formato=json&dataInicial="+dia+"/"+mes+"/"+anoInicio+"&dataFinal="+dia+"/"+mes+"/"+ano)
             .then(response => {
                 if (response.data != null) {
-                    var quantidade = response.length
+                    var quantidade = response.data.length
                     var soma = 0
                     var porcentagemInvestimento = 0
                     response.data.forEach(function(data, index) {
                         soma += parseFloat(data.valor)
-                        console.log("porcentagem="+data.valor)
                     });
-                    console.log("soma="+soma)
-                    console.log("quantidade="+quantidade)
                     porcentagemInvestimento = (soma/quantidade)*365
-                    console.log("porcentagemInvestimento="+porcentagemInvestimento)
                     if((porcentagemInvestimento!="")
                     &&(valorAvista!="")
                     &&(valorParcela!="")
                     &&(qtdParcela!="")){
                         let valorRestanteTemp = valorAvista
-                        console.log("valorAvista="+valorAvista)
                         for(let contador=1;contador<=qtdParcela;contador++){
                             valorRestanteTemp *= (1+(Math.pow(1 + (porcentagemInvestimento/100), 1/12) - 1))
                             valorRestanteTemp -= valorParcela
                         }
-                         console.log("valorRestanteTemp="+valorRestanteTemp)
                         setValorRestante(valorRestanteTemp)
                     }
                 }
